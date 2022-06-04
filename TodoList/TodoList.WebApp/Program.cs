@@ -1,7 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using TodoList.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+var configuration = builder.Configuration;
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add DataContext to the services
+services.AddDbContext<TodoListDbContext>(options =>
+{
+    options.UseSqlServer(configuration.GetConnectionString("Default"));
+});
 
 var app = builder.Build();
 
