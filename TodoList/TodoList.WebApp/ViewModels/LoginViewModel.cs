@@ -7,6 +7,7 @@ namespace TodoList.WebApp.ViewModels
         [Display(Name = "E-Mail")]
         public string Email { get; set; } = String.Empty;
         [Display(Name = "Passwort")]
+        [DataType(DataType.Password)]
         public string Password { get; set; } = String.Empty;
         [Display(Name = "Eingeloggt bleiben?")]
         public bool RememberMe { get; set; }

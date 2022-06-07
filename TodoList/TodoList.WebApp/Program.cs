@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TodoList.Data;
+using TodoList.Data.Models.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -8,11 +10,13 @@ var configuration = builder.Configuration;
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Add DataContext to the services
+// Daten-Kontext zu Services hinzufügen
 services.AddDbContext<TodoListDbContext>(options =>
 {
     options.UseSqlServer(configuration.GetConnectionString("Default"));
 });
+// Identity (UserManager etc.) zu Services hinzufügen
+services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<TodoListDbContext>();
 
 var app = builder.Build();
 
