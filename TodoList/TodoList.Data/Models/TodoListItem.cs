@@ -12,7 +12,7 @@ namespace TodoList.Data.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "{0} ist Pflichtfeld")]
         [StringLength(100)]
         [Display(Name = "Titel/Kurzbeschreibung")]
         public string? Title { get; set; }

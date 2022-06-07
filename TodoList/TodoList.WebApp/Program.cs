@@ -18,6 +18,10 @@ services.AddDbContext<TodoListDbContext>(options =>
 });
 // Identity (UserManager etc.) zu Services hinzufügen
 services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<TodoListDbContext>();
+services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Auth/Login";
+});
 // Repositories zu Services hinzufügen
 services.AddScoped<TodoListRepository>();
 services.AddScoped<TodoListItemRepository>();
