@@ -19,8 +19,8 @@ namespace TodoList.Data
 
         // DB-Set Properties für Projekt
 
-        public DbSet<TodoList.Data.Models.TodoList> TodoLists { get; set; }
-        public DbSet<TodoListItem> TodoListItems { get; set; }
+        public DbSet<TodoList.Data.Models.TodoList>? TodoLists { get; set; }
+        public DbSet<TodoListItem>? TodoListItems { get; set; }
 
         // Konfiguration. Tabellen zu singular-Namen
 

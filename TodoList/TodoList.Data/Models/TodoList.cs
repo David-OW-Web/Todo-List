@@ -18,9 +18,10 @@ namespace TodoList.Data.Models
         public string? Name { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
         [ForeignKey("User")]
         public string? UserId { get; set; }
         public ApplicationUser? User { get; set; }
+        public ICollection<TodoListItem>? TodoListItems { get; set; }
     }
 }

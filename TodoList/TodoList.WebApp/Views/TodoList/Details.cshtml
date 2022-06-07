@@ -1,0 +1,88 @@
+﻿@model TodoList.Data.Models.TodoList
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>TodoList</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+    </dl>
+</div>
+
+<div>
+    <h4>Items</h4>
+
+    <p>
+        <a asp-action="AddItem" asp-route-id="@Model.Id" class="btn btn-light">
+            Neues Item
+        </a>
+    </p>
+
+    @if (Model.TodoListItems.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Titel</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model.TodoListItems)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@Html.DisplayFor(i => item.Done)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    } else
+    {
+        <span>Keine Items vorhanden</span>
+    }
+</div>
+
+<div>
+    <a asp-action="Index">Zurück zur Liste</a>
+</div>
