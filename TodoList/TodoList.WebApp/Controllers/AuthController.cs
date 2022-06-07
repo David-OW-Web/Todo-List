@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TodoList.Data.Models.Auth;
 using TodoList.WebApp.ViewModels;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace TodoList.WebApp.Controllers
 {
@@ -77,6 +78,58 @@ namespace TodoList.WebApp.Controllers
                 ReturnUrl = returnUrl
             };
             return View(viewModel);
+        }
+
+        /// <summary>
+        /// Verarbeitet das Login
+        /// </summary>
+        /// <param name="model">Ausgefülltes Model mit Benutzerdaten</param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+                // Prüfen ob der Benutzer existiert
+                ApplicationUser user = await _userManager.FindByEmailAsync(model.Email);
+
+                if(user == null)
+                {
+                    ModelState.AddModelError("Email", "Ein unerwarteter Fehler ist aufgetreten");
+                    return View(model);
+                }
+
+                SignInResult result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+
+                // Prüfe ob es Fehler gibt
+                if(!result.Succeeded)
+                {
+                    ModelState.AddModelError("Email", "Es sind Fehler beim Login aufgetreten");
+                    return View(model);
+                }
+
+                // Es war alles gut. Leite Benutzer zu seinen Listen weiter oder zur ReturnUrl
+
+                if(!String.IsNullOrEmpty(model.ReturnUrl))
+                {
+                    return LocalRedirect(model.ReturnUrl);
+                }
+
+                return RedirectToAction("Index", "TodoList");
+            }
+            return View(model);
+        }
+
+        /// <summary>
+        /// Loggt den Benutzer aus und schickt ihn zurück zum Login
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Login");
         }
     }
 }
