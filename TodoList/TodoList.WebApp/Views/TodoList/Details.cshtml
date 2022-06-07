@@ -4,18 +4,12 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Model.Name</h1>
 
 <div>
-    <h4>TodoList</h4>
+    <h4>Todo-Liste</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -44,7 +38,7 @@
             @Html.DisplayNameFor(model => model.UserId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.User.Email)
         </dd>
     </dl>
 </div>
@@ -65,14 +59,23 @@
                 <tr>
                     <th>Titel</th>
                     <th>Status</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach(var item in Model.TodoListItems)
                 {
-                    <tr>
+                    <tr data-item-id="@item.Id">
                         <td>@item.Title</td>
                         <td>@Html.DisplayFor(i => item.Done)</td>
+                        <td>
+                            @if (!item.Done)
+                            {
+                                <form asp-controller="Item" asp-action="Done" asp-route-id="@item.Id" method="post">
+                                    <button type="submit" class="btn btn-success">Als erledigt markieren</button>
+                                </form>
+                            }
+                        </td>
                     </tr>
                 }
             </tbody>

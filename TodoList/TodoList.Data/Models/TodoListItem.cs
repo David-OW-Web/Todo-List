@@ -14,10 +14,14 @@ namespace TodoList.Data.Models
         public int Id { get; set; }
         [Required]
         [StringLength(100)]
+        [Display(Name = "Titel/Kurzbeschreibung")]
         public string? Title { get; set; }
+        [Display(Name = "Erstellt am")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Display(Name = "Erledigt?")]
         public bool Done { get; set; }
         [ForeignKey("TodoList")]
+        [Display(Name = "Todo-Liste")]
         public int? TodoListId { get; set; }
         public TodoList? TodoList { get; set; }
     }

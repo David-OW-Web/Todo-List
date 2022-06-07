@@ -16,10 +16,14 @@ namespace TodoList.Data.Models
         [Required]
         [StringLength(30)]
         public string? Name { get; set; }
+        [Display(Name = "Erstellt am")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Display(Name = "Aktualisiert am")]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
+        [Display(Name = "Aktiv?")]
         public bool Active { get; set; } = true;
         [ForeignKey("User")]
+        [Display(Name = "Erstellt von")]
         public string? UserId { get; set; }
         public ApplicationUser? User { get; set; }
         public ICollection<TodoListItem>? TodoListItems { get; set; }
