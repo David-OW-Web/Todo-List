@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using TodoList.WebApp.Models;
+using TodoList.WebApp.ViewModels;
 
 namespace TodoList.WebApp.Controllers
 {
