@@ -37,8 +37,11 @@
                 @Html.DisplayFor(modelItem => item.Active)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id">
-                    Details
+                <a asp-action="Details" asp-route-id="@item.Id" title="Details">
+                    <img src="~/icons/search.svg">
+                </a>
+                <a asp-action="Delete" asp-route-id="@item.Id" title="Liste löschen">
+                    <img src="~/icons/trash.svg">
                 </a>
             </td>
         </tr>

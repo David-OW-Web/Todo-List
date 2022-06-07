@@ -52,5 +52,16 @@ namespace TodoList.Data.Repositories
             await _context.SaveChangesAsync();
             return toDo;
         }
+
+        /// <summary>
+        /// Aktualisiert eine Todo-Liste
+        /// </summary>
+        /// <param name="toDo">Eine Instanz des Todo-Listen Modells</param>
+        /// <returns></returns>
+        public async Task<int> Update(ToDo toDo)
+        {
+            _context.TodoLists.Update(toDo);
+            return await _context.SaveChangesAsync();
+        }
     }
 }

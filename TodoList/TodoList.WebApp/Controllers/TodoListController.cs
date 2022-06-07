@@ -40,6 +40,8 @@ namespace TodoList.WebApp.Controllers
             List<ToDo> todoLists = await _todoListRepository.GetAllFromUser(_userId);
             // Sortiere nach Aktiv oder inaktiv, dann nach Erstelldatum
             todoLists = todoLists.OrderByDescending(t => t.Active).ThenByDescending(t => t.CreatedAt).ToList();
+            // Nur aktive Listen
+            todoLists = todoLists.Where(t => t.Active).ToList();
 
             return View(todoLists);
         }
@@ -127,6 +129,38 @@ namespace TodoList.WebApp.Controllers
             }
             await SetViewData(id.Value);
             return View(item);
+        }
+
+        /// <summary>
+        /// Zeigt die Ansicht zum Löschen einer Todo-Liste an
+        /// </summary>
+        /// <param name="id">Id der zu löschenden Todo-Liste</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            ToDo toDo = await _todoListRepository.Get(id);
+            if (toDo == null) return View("ListNotFound");
+
+            return View(toDo);
+        }
+
+        /// <summary>
+        /// Verarbeitet das Löschen einer Todo-Liste. Setzt Active auf false
+        /// </summary>
+        /// <param name="id">Die Id der Todo-Liste</param>
+        /// <returns></returns>
+        [HttpPost]
+        [ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id, ToDo toDoList)
+        {
+            ToDo toDo = await _todoListRepository.Get(id);
+            if (toDo == null) return View("ListNotFound");
+
+            toDo.Active = false;
+            await _todoListRepository.Update(toDo);
+
+            return RedirectToAction("Index");
         }
 
         /// <summary>

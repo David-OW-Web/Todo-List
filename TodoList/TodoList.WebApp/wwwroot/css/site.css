@@ -20,3 +20,8 @@ body {
 input[type=submit] {
     margin: 5px;
 }
+
+.required-label::after {
+    content: " *";
+    color: red;
+}

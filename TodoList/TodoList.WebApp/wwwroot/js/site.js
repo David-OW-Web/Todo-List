@@ -1,4 +1,9 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿// Pflichtfelder mit Stern markieren
+document.querySelectorAll("[data-val-required]").forEach(element => {
+    let label = element.parentElement.firstElementChild;
 
-// Write your JavaScript code.
+    // Fügt einen Stern hinzu zu Pflichtfeldern
+    if (label.nodeName == "LABEL") {
+        label.classList.add("required-label");
+    }
+})
